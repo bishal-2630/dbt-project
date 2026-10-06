@@ -1,0 +1,12 @@
+version: 2
+sources:
+  - name: bronze
+    schema: bronze
+    tables:
+      - name: customer
+      - name: branch
+      - name: product
+      - name: account
+        loaded_at_field: lchg_time
+      - name: card
+      - name: hist_transactional
