@@ -29,12 +29,12 @@ clean-targets: # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   dbt_project:
-  staging:
-    +materialized: table
-    +schema: silver
-  marts:
-    +materialized: table
-    +schema: gold
+    staging:
+      +materialized: table
+      +schema: silver
+    marts:
+      +materialized: table
+      +schema: gold
 
 seeds:
   dbt_project:
