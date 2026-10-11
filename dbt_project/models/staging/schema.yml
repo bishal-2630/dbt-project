@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: stg_customer
+    columns:
+      - name: cust_id
+        data_tests: [unique, not_null]
+      - name: email
+        data_tests: [unique]
+
+  - name: stg_branch
+    columns:
+      - name: branch_id
+        data_tests: [unique, not_null]
+
+  - name: stg_product
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+      - name: schm_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["SA", "CA", "FD", "RD", "LD"]
+
+  - name: stg_account
+    columns:
+      - name: account_id
+        data_tests: [unique, not_null]
+      - name: customer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_customer')
+                field: cust_id
+      - name: branch_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_branch')
+                field: branch_id
+      - name: product_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_product')
+                field: product_id
+      - name: acct_cls_flg
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Y", "N"]
+
+  - name: stg_card
+    columns:
+      - name: card_number
+        data_tests: [unique, not_null]
+      - name: account_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_account')
+                field: account_id
+
+  - name: stg_hist_transactional
+    columns:
+      - name: tran_id
+        data_tests: [unique, not_null]
+      - name: account_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_account')
+                field: account_id
+      - name: tran_amount
+        data_tests: [not_null]
