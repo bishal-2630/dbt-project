@@ -35,7 +35,3 @@ models:
     marts:
       +materialized: table
       +schema: gold
-
-seeds:
-  dbt_project:
-    +schema: silver
